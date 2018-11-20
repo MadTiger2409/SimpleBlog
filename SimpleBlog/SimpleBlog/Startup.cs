@@ -34,6 +34,7 @@ namespace SimpleBlog
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddSession();
 
             #region DatabaseSettings
             services.AddDbContext<BlogContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SimpleBlogDatabase")));
@@ -54,6 +55,7 @@ namespace SimpleBlog
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseSession();
 
             app.UseMvc(routes =>
             {
