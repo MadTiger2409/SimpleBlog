@@ -54,9 +54,13 @@ namespace SimpleBlog.Migrations
 
                     b.Property<DateTime>("UpdatedAt");
 
+                    b.Property<int?>("UserId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("PostId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Comments");
                 });
@@ -67,19 +71,23 @@ namespace SimpleBlog.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("AdminId");
+
                     b.Property<string>("Content");
 
                     b.Property<DateTime>("CreatedAt");
 
+                    b.Property<string>("Description");
+
                     b.Property<string>("Tags");
+
+                    b.Property<string>("Title");
 
                     b.Property<DateTime>("UpdatedAt");
 
-                    b.Property<int?>("UserId");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("AdminId");
 
                     b.ToTable("Posts");
                 });
@@ -111,13 +119,18 @@ namespace SimpleBlog.Migrations
                         .WithMany("Comments")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("SimpleBlog.Data.Models.User", "User")
+                        .WithMany("Comments")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("SimpleBlog.Data.Models.Post", b =>
                 {
-                    b.HasOne("SimpleBlog.Data.Models.User", "User")
+                    b.HasOne("SimpleBlog.Data.Models.Admin", "Admin")
                         .WithMany("Posts")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("AdminId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618

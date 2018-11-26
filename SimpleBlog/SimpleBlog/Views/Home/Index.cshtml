@@ -1,42 +1,28 @@
-﻿@{
+﻿@model IEnumerable<SimpleBlog.Data.Models.Post>
+@{
     ViewData["Title"] = "Home Page";
 }
 @section Scripts{
     <link rel="stylesheet" href="~/css/sites/index.css" />
 }
 
-<div class="card">
-    <div class="card-body">
-        <h5 class="card-title">Hello World</h5>
-        <h6 class="card-subtitle mb-2 text-muted">20.11.2018</h6>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="card-link">Card link</a>
-    </div>
-</div>
-
-<div class="card">
-    <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="card-link">Card link</a>
-    </div>
-</div>
-
-<div class="card">
-    <div class="card-body">
-        <h5 class="card-title">Hello World</h5>
-        <h6 class="card-subtitle mb-2 text-muted">20.11.2018</h6>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="card-link">Card link</a>
-    </div>
-</div>
-
-<div class="card">
-    <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="card-link">Card link</a>
-    </div>
-</div>
+@if (Model != null && Model.Any())
+{
+    foreach (var post in Model)
+    {
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">@post.Title</h5>
+                <h6 class="card-subtitle mb-2 text-muted">@post.CreatedAt</h6>
+                <p class="card-text">@post.Description</p>
+                <a href="#" class="card-link">Card link</a>
+            </div>
+        </div>
+    }
+}
+else
+{
+        <div class="alert alert-primary" role="alert">
+            No posts here? There will be some soon :)
+        </div>
+}

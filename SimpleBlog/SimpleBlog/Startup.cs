@@ -10,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleBlog.Data.Database;
+using SimpleBlog.Data.Services;
+using SimpleBlog.Data.Services.Interfaces;
 
 namespace SimpleBlog
 {
@@ -38,6 +40,10 @@ namespace SimpleBlog
 
             #region DatabaseSettings
             services.AddDbContext<BlogContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SimpleBlogDatabase")));
+            #endregion
+
+            #region Service
+            services.AddScoped<IPostService, PostService>();
             #endregion
         }
 

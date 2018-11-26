@@ -4,32 +4,32 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using SimpleBlog.Data.Services.Interfaces;
 
 namespace SimpleBlog.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private IPostService _postService;
+
+        public HomeController(IPostService postService)
         {
-            return View();
+            _postService = postService;
         }
 
-        public IActionResult About()
+        [HttpGet]
+        public async Task<IActionResult> Index()
         {
-            ViewData["Message"] = "Your application description page.";
+            var posts = await _postService.GetPostsAsync();
 
-            return View();
+            return View(posts);
         }
 
+        [HttpGet("contact")]
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
 
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
             return View();
         }
 

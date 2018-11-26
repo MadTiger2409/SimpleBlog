@@ -25,13 +25,18 @@ namespace SimpleBlog.Data.Database
             }
 
             modelBuilder.Entity<User>()
-                .HasMany(x => x.Posts)
+                .HasMany(x => x.Comments)
                 .WithOne(y => y.User)
                 .IsRequired(false);
 
             modelBuilder.Entity<Post>()
                 .HasMany(x => x.Comments)
                 .WithOne(y => y.Post)
+                .IsRequired(false);
+
+            modelBuilder.Entity<Admin>()
+                .HasMany(x => x.Posts)
+                .WithOne(y => y.Admin)
                 .IsRequired(false);
         }
     }
