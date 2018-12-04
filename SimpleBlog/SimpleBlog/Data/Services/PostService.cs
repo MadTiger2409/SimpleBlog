@@ -10,7 +10,7 @@ namespace SimpleBlog.Data.Services
 {
     public class PostService : IPostService
     {
-        private BlogContext _context;
+        private readonly BlogContext _context;
 
         public PostService(BlogContext context)
         {

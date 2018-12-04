@@ -44,6 +44,7 @@ namespace SimpleBlog
 
             #region Service
             services.AddScoped<IPostService, PostService>();
+            services.AddScoped<IUserService, UserService>();
             #endregion
         }
 
