@@ -7,6 +7,13 @@
     <link rel="stylesheet" href="~/css/sites/registration.css" />
 }
 
+@if (ViewBag.ShowMessage == true)
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewBag.Message
+    </div>
+}
+
 <div class="card border-secondary mb-3">
     <div class="card-body">
         <h5 class="card-title">Registration</h5>

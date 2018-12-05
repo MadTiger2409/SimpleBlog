@@ -26,7 +26,8 @@ namespace SimpleBlog.Controllers
 
             if (!loginRegex.Match(command.Login).Success || !passwordRegex.Match(command.Password).Success)
             {
-                // Return view with error message
+                ViewBag.ShowMessage = true;
+                ViewBag.Message = "Wrong login or password";
                 return View();
             }
 
