@@ -12,9 +12,11 @@ namespace SimpleBlog.Data.Models
         public byte[] PasswordHash { get; set; }
         public List<Comment> Comments { get; set; }
 
-        public User() : base()
+        public User(byte[] passwordHash, byte[] salt, string login) : base()
         {
-
+            PasswordHash = passwordHash;
+            Salt = salt;
+            Login = login;
         }
     }
 }

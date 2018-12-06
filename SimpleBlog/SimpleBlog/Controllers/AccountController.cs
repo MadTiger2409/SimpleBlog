@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SimpleBlog.Commands.User;
+using SimpleBlog.Data.Services.Interfaces;
 using SimpleBlog.Extensions;
 
 namespace SimpleBlog.Controllers
@@ -12,6 +13,13 @@ namespace SimpleBlog.Controllers
     [Route("account")]
     public class AccountController : Controller
     {
+        private readonly IUserService _userService;
+
+        public AccountController(IUserService userService)
+        {
+            _userService = userService;
+        }
+
         [HttpGet("register")]
         public IActionResult Registration()
         {
@@ -19,7 +27,7 @@ namespace SimpleBlog.Controllers
         }
 
         [HttpPost("register")]
-        public IActionResult Registration(CreateUserCommand command)
+        public async Task<IActionResult> Registration(CreateUserCommand command)
         {
             if (!ModelState.IsValid)
             {
@@ -40,7 +48,16 @@ namespace SimpleBlog.Controllers
 
             try
             {
-                // register user and return him to the login page with information about successful registration
+                await _userService.RegisterUserAsync(command);
+
+                ViewBag.ShowMessage = true;
+                ViewBag.Message = "User registered";
+                return View();
+            }
+            catch (InternalSystemException ex)
+            {
+                ViewBag.ShowMessage = true;
+                ViewBag.Message = ex.Message;
                 return View();
             }
             catch (Exception)

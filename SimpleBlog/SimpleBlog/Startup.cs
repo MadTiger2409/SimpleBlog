@@ -12,6 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 using SimpleBlog.Data.Database;
 using SimpleBlog.Data.Services;
 using SimpleBlog.Data.Services.Interfaces;
+using SimpleBlog.Extensions;
+using SimpleBlog.Extensions.Interfaces;
 
 namespace SimpleBlog
 {
@@ -45,6 +47,10 @@ namespace SimpleBlog
             #region Service
             services.AddScoped<IPostService, PostService>();
             services.AddScoped<IUserService, UserService>();
+            #endregion
+
+            #region Extensions
+            services.AddScoped<IPasswordManager, PasswordManager>();
             #endregion
         }
 
