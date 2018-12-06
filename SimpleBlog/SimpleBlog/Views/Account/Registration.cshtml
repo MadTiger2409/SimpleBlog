@@ -18,18 +18,31 @@
     <div class="card-body">
         <h5 class="card-title">Registration</h5>
         <hr>
-        <form>
+        <form action="../account/register" method="post">
             <div class="form-group">
                 <label for="login">Login</label>
-                <input type="text" class="form-control" id="login" placeholder="Enter your login"
-                       title="Login can contain uppercase and lovercase letters and numbers, and from 5 to 20 letters"
-                       pattern="[a-zA-Z][a-zA-Z0-9]{5,20}">
+                @Html.TextBoxFor(model => model.Login, new
+           {
+               @type = "text",
+               @class = "form-control",
+               @id = "login",
+               @placeholder = "Enter your login",
+               @title = "Login can contain uppercase and lovercase letters and numbers, and from 5 to 20 letters",
+               @pattern = "[a-zA-Z][a-zA-Z0-9]{5,20}"
+           })
+
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Enter your password"
-                       title="Password must contain at least one number and one uppercase and lowercase letter, and from 8 to 30 characters"
-                       pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,30}">
+                @Html.TextBoxFor(model => model.Password, new
+           {
+               @type = "password",
+               @class = "form-control",
+               @id = "password",
+               @placeholder = "Enter your password",
+               @title = "Password must contain at least one number and one uppercase and lowercase letter, and from 8 to 30 characters",
+               @pattern = @"(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,30}"
+           })
             </div>
             <button type="submit" class="btn btn-primary">Register</button>
         </form>

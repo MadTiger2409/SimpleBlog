@@ -21,6 +21,13 @@ namespace SimpleBlog.Controllers
         [HttpPost("register")]
         public IActionResult Registration(CreateUserCommand command)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.ShowMessage = true;
+                ViewBag.Message = "Something went wrong";
+                return View();
+            }
+
             Regex loginRegex = new Regex(AccountRegex.Login);
             Regex passwordRegex = new Regex(AccountRegex.Password);
 
@@ -31,7 +38,17 @@ namespace SimpleBlog.Controllers
                 return View();
             }
 
-            return View();
+            try
+            {
+                // register user and return him to the login page with information about successful registration
+                return View();
+            }
+            catch (Exception)
+            {
+                ViewBag.ShowMessage = true;
+                ViewBag.Message = "Something went wrong";
+                return View();
+            }
         }
     }
 }
