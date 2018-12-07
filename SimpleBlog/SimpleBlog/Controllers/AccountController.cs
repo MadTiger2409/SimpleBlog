@@ -49,10 +49,8 @@ namespace SimpleBlog.Controllers
             try
             {
                 await _userService.RegisterUserAsync(command);
-
-                ViewBag.ShowMessage = true;
-                ViewBag.Message = "User registered";
-                return View();
+                TempData["Registered"] = true;
+                return RedirectToAction("Index", "Home");
             }
             catch (InternalSystemException ex)
             {

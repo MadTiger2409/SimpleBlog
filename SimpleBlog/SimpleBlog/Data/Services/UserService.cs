@@ -42,7 +42,7 @@ namespace SimpleBlog.Data.Services
             byte[] passwordHash, passwordSalt;
             _passwordManager.CalculatePasswordHash(command.Password, out passwordHash, out passwordSalt);
 
-            _context.Users.Add(new User(passwordHash, passwordSalt));
+            _context.Users.Add(new User(passwordHash, passwordSalt, command.Login));
             await _context.SaveChangesAsync();
         }
 

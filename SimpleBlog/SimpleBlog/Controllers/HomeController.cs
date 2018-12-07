@@ -21,6 +21,7 @@ namespace SimpleBlog.Controllers
         public async Task<IActionResult> Index()
         {
             var posts = await _postService.GetPostsAsync();
+            ViewBag.Registered = TempData["Registered"];
 
             return View(posts);
         }
