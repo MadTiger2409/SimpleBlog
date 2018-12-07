@@ -1,17 +1,23 @@
 ﻿@{
     ViewData["Title"] = "Contact";
 }
-<h2>@ViewData["Title"]</h2>
-<h3>@ViewData["Message"]</h3>
+@section Styles{
+    <link rel="stylesheet" href="~/css/sites/contact.css" />
+}
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+<div class="card border-secondary mb-3">
+    <div class="card-body">
+        <h5 class="card-title">Contact</h5>
+        <hr>
+        <address>
+            Michael B.<br />
+            Katowice, Silesia Voivodeship<br />
+            Phone: 123-456-789
+        </address>
 
-<address>
-    <strong>Support:</strong> <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+        <address>
+            <strong>GitHub:</strong> <a href="https://github.com/MadTiger2409">github.com/MadTiger2409</a><br />
+            <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/micha%C5%82-b-4292a6163/">linkedin.com/in/michał-b</a>
+        </address>
+    </div>
+</div>

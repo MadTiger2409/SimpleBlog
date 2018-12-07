@@ -1,7 +1,17 @@
 ﻿.card {
     margin-top: 5%;
+    margin-left: 10%;
+    margin-right: 10%;
 }
 
 .alert {
     margin-top: 5px;
+}
+
+#login {
+    width: 90%;
+}
+
+#password {
+    width: 90%;
 }
