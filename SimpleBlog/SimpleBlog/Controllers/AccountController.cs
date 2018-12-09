@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using SimpleBlog.Commands.User;
+using SimpleBlog.Commands.Account;
 using SimpleBlog.Data.Services.Interfaces;
 using SimpleBlog.Extensions;
 
@@ -20,6 +20,7 @@ namespace SimpleBlog.Controllers
             _userService = userService;
         }
 
+        #region Register
         [HttpGet("register")]
         public IActionResult Registration()
         {
@@ -65,5 +66,20 @@ namespace SimpleBlog.Controllers
                 return View();
             }
         }
+        #endregion
+
+        #region LogIn
+        [HttpGet("login")]
+        public IActionResult LogIn()
+        {
+            return View();
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> LogIn(LogInCommand command)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
     }
 }

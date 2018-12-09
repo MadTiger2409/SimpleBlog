@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using SimpleBlog.Commands.User;
+using SimpleBlog.Commands.Account;
 using SimpleBlog.Data.Models;
 
 namespace SimpleBlog.Data.Services.Interfaces
