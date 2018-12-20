@@ -5,12 +5,13 @@ using System.Threading.Tasks;
 
 namespace SimpleBlog.Data.Models
 {
-    public class Admin : Entity
+    public class Admin : Account
     {
-        public string Login { get; set; }
-        public byte[] Salt { get; set; }
-        public byte[] PasswordHash { get; set; }
-
         public List<Post> Posts { get; set; }
+
+        public Admin(byte[] passwordHash, byte[] salt, string login) : base(passwordHash, salt, login)
+        {
+            IsAdmin = true;
+        }
     }
 }

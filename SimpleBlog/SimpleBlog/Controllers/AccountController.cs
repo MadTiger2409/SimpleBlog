@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SimpleBlog.Commands.Account;
 using SimpleBlog.Data.Services.Interfaces;
@@ -72,12 +73,22 @@ namespace SimpleBlog.Controllers
         [HttpGet("login")]
         public IActionResult LogIn()
         {
-            return View();
+            if (HttpContext.Session.GetString("Login") != null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> LogIn(LogInCommand command)
         {
+            // get account (from Accounts DbSet), check if it exits and if credentials are good
+            // if so, then check if it is admin and return view or redirect with information
+            // base in this fact
             throw new NotImplementedException();
         }
         #endregion

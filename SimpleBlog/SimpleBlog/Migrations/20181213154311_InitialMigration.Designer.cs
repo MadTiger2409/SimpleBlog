@@ -10,8 +10,8 @@ using SimpleBlog.Data.Database;
 namespace SimpleBlog.Migrations
 {
     [DbContext(typeof(BlogContext))]
-    [Migration("20181126131746_Initial")]
-    partial class Initial
+    [Migration("20181213154311_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,13 +21,18 @@ namespace SimpleBlog.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("SimpleBlog.Data.Models.Admin", b =>
+            modelBuilder.Entity("SimpleBlog.Data.Models.Account", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("CreatedAt");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
+                    b.Property<bool>("IsAdmin");
 
                     b.Property<string>("Login");
 
@@ -39,7 +44,9 @@ namespace SimpleBlog.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Admins");
+                    b.ToTable("Accounts");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Account");
                 });
 
             modelBuilder.Entity("SimpleBlog.Data.Models.Comment", b =>
@@ -94,25 +101,24 @@ namespace SimpleBlog.Migrations
                     b.ToTable("Posts");
                 });
 
+            modelBuilder.Entity("SimpleBlog.Data.Models.Admin", b =>
+                {
+                    b.HasBaseType("SimpleBlog.Data.Models.Account");
+
+
+                    b.ToTable("Admin");
+
+                    b.HasDiscriminator().HasValue("Admin");
+                });
+
             modelBuilder.Entity("SimpleBlog.Data.Models.User", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.HasBaseType("SimpleBlog.Data.Models.Account");
 
-                    b.Property<DateTime>("CreatedAt");
 
-                    b.Property<string>("Login");
+                    b.ToTable("User");
 
-                    b.Property<byte[]>("PasswordHash");
-
-                    b.Property<byte[]>("Salt");
-
-                    b.Property<DateTime>("UpdatedAt");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users");
+                    b.HasDiscriminator().HasValue("User");
                 });
 
             modelBuilder.Entity("SimpleBlog.Data.Models.Comment", b =>

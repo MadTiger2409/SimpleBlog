@@ -9,6 +9,7 @@ namespace SimpleBlog.Data.Database
 {
     public class BlogContext : DbContext
     {
+        public DbSet<Account> Accounts { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Post> Posts { get; set; }

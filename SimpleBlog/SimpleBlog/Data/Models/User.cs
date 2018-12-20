@@ -5,18 +5,13 @@ using System.Threading.Tasks;
 
 namespace SimpleBlog.Data.Models
 {
-    public class User : Entity
+    public class User : Account
     {
-        public string Login { get; set; }
-        public byte[] Salt { get; set; }
-        public byte[] PasswordHash { get; set; }
         public List<Comment> Comments { get; set; }
 
-        public User(byte[] passwordHash, byte[] salt, string login) : base()
+        public User(byte[] passwordHash, byte[] salt, string login) : base(passwordHash, salt, login)
         {
-            PasswordHash = passwordHash;
-            Salt = salt;
-            Login = login;
+            IsAdmin = false;
         }
     }
 }
