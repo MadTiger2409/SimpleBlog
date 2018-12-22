@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SimpleBlog.Extensions;
 
 namespace SimpleBlog.Data.Models
 {
@@ -14,6 +15,18 @@ namespace SimpleBlog.Data.Models
 
         public Account(byte[] passwordHash, byte[] salt, string login)
         {
+            PasswordHash = passwordHash;
+            Salt = salt;
+            Login = login;
+        }
+
+        public Account(string password, string login)
+        {
+            var manager = new PasswordManager();
+            byte[] passwordHash, salt;
+
+            manager.CalculatePasswordHash(password, out passwordHash, out salt);
+
             PasswordHash = passwordHash;
             Salt = salt;
             Login = login;

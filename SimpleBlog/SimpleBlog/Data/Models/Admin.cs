@@ -13,5 +13,10 @@ namespace SimpleBlog.Data.Models
         {
             IsAdmin = true;
         }
+
+        public Admin(string password, string login) : base(password, login)
+        {
+            IsAdmin = true;
+        }
     }
 }

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using SimpleBlog.Commands.Message;
 using SimpleBlog.Data.Services.Interfaces;
 
 namespace SimpleBlog.Controllers
@@ -33,6 +34,12 @@ namespace SimpleBlog.Controllers
             ViewData["Message"] = "Your contact page.";
 
             return View();
+        }
+
+        [HttpPost("contact")]
+        public async Task<IActionResult> Contact(CreateMessageCommand command)
+        {
+            throw new NotImplementedException();
         }
 
         //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
