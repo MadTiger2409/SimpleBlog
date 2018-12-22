@@ -4,7 +4,7 @@
 
 body {
     min-height: 100%;
-    margin: 0px;
+    margin: 0;
     background: rgb(231,221,90) no-repeat;
     background: linear-gradient(150deg, rgba(231,221,90,1) 0%, rgba(128,209,226,1) 100%) no-repeat;
     background-size:cover;

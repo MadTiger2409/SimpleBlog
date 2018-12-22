@@ -11,9 +11,6 @@ namespace SimpleBlog.Data.Models
         public Post Post { get; set; }
         public User User { get; set; }
 
-        public Comment() : base()
-        {
-
-        }
+        public Comment() : base() { }
     }
 }

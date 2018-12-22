@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using SimpleBlog.Commands.Account;
 using SimpleBlog.Data.Services.Interfaces;
 using SimpleBlog.Extensions;
+using SimpleBlog.Extensions.Attributes;
 
 namespace SimpleBlog.Controllers
 {
@@ -29,12 +30,14 @@ namespace SimpleBlog.Controllers
 
         #region Register
         [HttpGet("register")]
+        [LoggedInCheck]
         public IActionResult Registration()
         {
             return View();
         }
 
         [HttpPost("register")]
+        [LoggedInCheck]
         public async Task<IActionResult> Registration(CreateUserCommand command)
         {
             if (!ModelState.IsValid)
@@ -80,19 +83,14 @@ namespace SimpleBlog.Controllers
 
         #region LogIn
         [HttpGet("login")]
+        [LoggedInCheck]
         public IActionResult LogIn()
         {
-            if (HttpContext.Session.GetString("Login") != null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                return View();
-            }
+            return View();
         }
 
         [HttpPost("login")]
+        [LoggedInCheck]
         public async Task<IActionResult> LogIn(LogInCommand command)
         {
             if (!ModelState.IsValid)
@@ -128,7 +126,7 @@ namespace SimpleBlog.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Profile", "Account");
+                    return RedirectToAction("Profile", "Admin");
                 }
             }
             catch (InternalSystemException ex)
@@ -146,14 +144,12 @@ namespace SimpleBlog.Controllers
         }
         #endregion
 
-        #region Admin
-
-        [HttpGet("profile")]
-        public async Task<IActionResult> AdminProfile()
+        [HttpGet("logout")]
+        public async Task<IActionResult> LogOut()
         {
-            throw new NotImplementedException();
-        }
+            HttpContext.Session.Clear();
 
-        #endregion
+            return await Task.FromResult(RedirectToAction("Index", "Home"));
+        }
     }
 }
