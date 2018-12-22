@@ -38,7 +38,11 @@ namespace SimpleBlog
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddSession();
+            services.AddSession(options =>
+            {
+                options.Cookie.HttpOnly = false;
+                options.IdleTimeout = TimeSpan.FromHours(5);
+            });
 
             #region DatabaseSettings
             services.AddDbContext<BlogContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SimpleBlogDatabase")));
@@ -47,6 +51,7 @@ namespace SimpleBlog
             #region Service
             services.AddScoped<IPostService, PostService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IAccountService, AccountService>();
             #endregion
 
             #region Extensions

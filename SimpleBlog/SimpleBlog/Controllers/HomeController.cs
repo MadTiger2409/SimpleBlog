@@ -22,6 +22,7 @@ namespace SimpleBlog.Controllers
         {
             var posts = await _postService.GetPostsAsync();
             ViewBag.Registered = TempData["Registered"];
+            ViewBag.LoggedIn = TempData["LoggedIn"];
 
             return View(posts);
         }

@@ -45,10 +45,5 @@ namespace SimpleBlog.Data.Services
             _context.Users.Add(new User(passwordHash, passwordSalt, command.Login));
             await _context.SaveChangesAsync();
         }
-
-        private Exception InternalSystemException()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

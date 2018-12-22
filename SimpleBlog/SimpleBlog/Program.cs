@@ -14,8 +14,11 @@ namespace SimpleBlog
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).UseSetting("https_port","443")
-                .UseSetting("http_port","80").Build().Run();
+            // This one allows only https connections
+            //CreateWebHostBuilder(args).UseSetting("https_port","443")
+            //    .Build().Run();
+
+            CreateWebHostBuilder(args).Build().Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>

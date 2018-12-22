@@ -15,10 +15,16 @@ namespace SimpleBlog.Controllers
     public class AccountController : Controller
     {
         private readonly IUserService _userService;
+        private readonly IAccountService _accountService;
+        private Regex loginRegex;
+        private Regex passwordRegex;
 
-        public AccountController(IUserService userService)
+        public AccountController(IUserService userService, IAccountService accountService)
         {
             _userService = userService;
+            _accountService = accountService;
+            loginRegex = new Regex(AccountRegex.Login);
+            passwordRegex = new Regex(AccountRegex.Password);
         }
 
         #region Register
@@ -38,10 +44,13 @@ namespace SimpleBlog.Controllers
                 return View();
             }
 
-            Regex loginRegex = new Regex(AccountRegex.Login);
-            Regex passwordRegex = new Regex(AccountRegex.Password);
-
-            if (!loginRegex.Match(command.Login).Success || !passwordRegex.Match(command.Password).Success)
+            if (command.Login == null || command.Password == null)
+            {
+                ViewBag.ShowMessage = true;
+                ViewBag.Message = "Fields can't be empty!";
+                return View();
+            }
+            else if (!loginRegex.Match(command.Login).Success || !passwordRegex.Match(command.Password).Success)
             {
                 ViewBag.ShowMessage = true;
                 ViewBag.Message = "Wrong login or password";
@@ -86,11 +95,65 @@ namespace SimpleBlog.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> LogIn(LogInCommand command)
         {
-            // get account (from Accounts DbSet), check if it exits and if credentials are good
-            // if so, then check if it is admin and return view or redirect with information
-            // base in this fact
+            if (!ModelState.IsValid)
+            {
+                ViewBag.ShowMessage = true;
+                ViewBag.Message = "Something went wrong";
+                return View();
+            }
+
+            if (command.Login == null || command.Password == null)
+            {
+                ViewBag.ShowMessage = true;
+                ViewBag.Message = "Fields can't be empty!";
+                return View();
+            }
+            else if (!loginRegex.Match(command.Login).Success || !passwordRegex.Match(command.Password).Success)
+            {
+                ViewBag.ShowMessage = true;
+                ViewBag.Message = "Wrong login or password";
+                return View();
+            }
+
+            try
+            {
+                var account = await _accountService.LoginAccountAsync(command);
+                HttpContext.Session.SetString("Login", account.Login);
+                HttpContext.Session.SetString("IsAdmin", account.IsAdmin.ToString());
+
+                if (account.IsAdmin == false)
+                {
+                    TempData["LoggedIn"] = true;
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    return RedirectToAction("Profile", "Account");
+                }
+            }
+            catch (InternalSystemException ex)
+            {
+                ViewBag.ShowMessage = true;
+                ViewBag.Message = ex.Message;
+                return View();
+            }
+            catch (Exception)
+            {
+                ViewBag.ShowMessage = true;
+                ViewBag.Message = "Something went wrong";
+                return View();
+            }
+        }
+        #endregion
+
+        #region Admin
+
+        [HttpGet("profile")]
+        public async Task<IActionResult> AdminProfile()
+        {
             throw new NotImplementedException();
         }
+
         #endregion
     }
 }
