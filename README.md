@@ -52,12 +52,17 @@ Simple implementation of the blog with basic functionality.
   
   <tr>
     <td>User loging in</td>
-    <td>:construction:</td>
+    <td>:heavy_check_mark:</td>
   </tr>
   
   <tr>
     <td>Admin loging in</td>
-    <td>:construction:</td>
+    <td>:heavy_check_mark:</td>
+  </tr>
+  
+  <tr>
+    <td>Cookies information</td>
+    <td>:heavy_check_mark:</td>
   </tr>
   
   <tr>
