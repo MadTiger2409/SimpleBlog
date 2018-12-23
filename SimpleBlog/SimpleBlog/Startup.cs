@@ -51,6 +51,7 @@ namespace SimpleBlog
             services.AddScoped<IPostService, PostService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IMessageService, MessageService>();
             #endregion
 
             #region Extensions

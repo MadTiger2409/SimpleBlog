@@ -53,7 +53,7 @@ namespace SimpleBlog.Controllers
                 ViewBag.Message = "Fields can't be empty!";
                 return View();
             }
-            else if (!loginRegex.Match(command.Login).Success || !passwordRegex.Match(command.Password).Success)
+            else if (!loginRegex.IsMatch(command.Login) || !passwordRegex.IsMatch(command.Password))
             {
                 ViewBag.ShowMessage = true;
                 ViewBag.Message = "Wrong login or password";
