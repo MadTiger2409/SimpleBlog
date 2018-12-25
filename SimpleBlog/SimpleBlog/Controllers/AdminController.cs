@@ -8,10 +8,11 @@ using SimpleBlog.Extensions.Attributes;
 namespace SimpleBlog.Controllers
 {
     [NotAdminCheck]
+    [Route("admin")]
     public class AdminController : Controller
     {
-        [HttpGet("profile")]
-        public async Task<IActionResult> Profile()
+        [HttpGet("statistics")]
+        public async Task<IActionResult> Statistics()
         {
             return await Task.FromResult(View());
         }

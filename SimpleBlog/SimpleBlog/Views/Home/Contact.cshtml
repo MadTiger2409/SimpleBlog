@@ -82,7 +82,9 @@
                        @class = "form-control",
                        @id = "message",
                        @placeholder = "Enter your message",
-                       @pattern = @".{5,400}"
+                       @pattern = @".{5,400}",
+                       @maxlength = "400",
+                       @minlength = 5
                    })
                     </div>
                     <button type="submit" class="btn btn-primary">Send</button>

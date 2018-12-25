@@ -1,0 +1,42 @@
+﻿html {
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    background: #212121;
+    color: whitesmoke;
+}
+
+.body-content {
+    padding-left: 1%;
+    padding-right: 0;
+    grid-area: content-css-container;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-areas: 'side-css-menu content-css-container';
+    grid-template-columns: auto 80%;
+    grid-gap: 0;
+    grid-column-gap: 0;
+    padding: 0;
+}
+
+.side-css-menu {
+    grid-area: side-css-menu;
+    width: 180px;
+}
+
+.navbar-nav {
+    min-height: 95vh;
+}
+
+.dropdown-item {
+    color: whitesmoke;
+}
+
+.dropdown-item:hover {
+    color: whitesmoke;
+}

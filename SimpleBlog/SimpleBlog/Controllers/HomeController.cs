@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SimpleBlog.Commands.Message;
+using SimpleBlog.Commands.Validation.Message;
 using SimpleBlog.Data.Services.Interfaces;
 using SimpleBlog.Extensions;
 
@@ -43,28 +44,26 @@ namespace SimpleBlog.Controllers
         [HttpPost("contact")]
         public async Task<IActionResult> Contact(CreateMessageCommand command)
         {
-            var nameRegex = new Regex(MessageRegex.Name);
-            var emailRegex = new Regex(MessageRegex.Email);
-            var textRegex = new Regex(MessageRegex.Text);
-
-            if (command.Name == null || command.Email == null || command.Text == null)
+            if (!ModelState.IsValid)
             {
                 ViewBag.ShowMessage = true;
-                ViewBag.Message = "Fields can't be empty!";
-                return View();
-            }
-            else if (!nameRegex.IsMatch(command.Name) || !emailRegex.IsMatch(command.Email) || !textRegex.IsMatch(command.Text))
-            {
-                ViewBag.ShowMessage = true;
-                ViewBag.Message = "Please provide correct data!";
+                ViewBag.Message = "Something went wrong";
                 return View();
             }
 
             try
             {
+                CreateMessageValidator.CommandValidation(command);
+
                 await _messageService.AddMessageAsync(command);
 
                 ViewBag.Added = true;
+                return View();
+            }
+            catch (InternalSystemException ex)
+            {
+                ViewBag.ShowMessage = true;
+                ViewBag.Message = ex.Message;
                 return View();
             }
             catch (Exception)

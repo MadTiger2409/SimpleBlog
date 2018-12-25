@@ -41,6 +41,12 @@
                             @Context.Session.GetString("Login")
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                            @if (Context.Session.GetString("IsAdmin") == "True")
+                            {
+                                <a class="dropdown-item" href="@Url.Action("statistics", "Admin")">Dashboard</a>
+                            }
+
                             <a class="dropdown-item" href="@Url.Action("logout", "Account")">Log Out</a>
                         </div>
                     </li>

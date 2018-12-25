@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SimpleBlog.Commands.Account;
+using SimpleBlog.Commands.Validation.Account;
 using SimpleBlog.Data.Services.Interfaces;
 using SimpleBlog.Extensions;
 using SimpleBlog.Extensions.Attributes;
@@ -17,15 +18,11 @@ namespace SimpleBlog.Controllers
     {
         private readonly IUserService _userService;
         private readonly IAccountService _accountService;
-        private Regex loginRegex;
-        private Regex passwordRegex;
 
         public AccountController(IUserService userService, IAccountService accountService)
         {
             _userService = userService;
             _accountService = accountService;
-            loginRegex = new Regex(AccountRegex.Login);
-            passwordRegex = new Regex(AccountRegex.Password);
         }
 
         #region Register
@@ -47,21 +44,10 @@ namespace SimpleBlog.Controllers
                 return View();
             }
 
-            if (command.Login == null || command.Password == null)
-            {
-                ViewBag.ShowMessage = true;
-                ViewBag.Message = "Fields can't be empty!";
-                return View();
-            }
-            else if (!loginRegex.IsMatch(command.Login) || !passwordRegex.IsMatch(command.Password))
-            {
-                ViewBag.ShowMessage = true;
-                ViewBag.Message = "Wrong login or password";
-                return View();
-            }
-
             try
             {
+                CreateUserValidator.CommandValidation(command);
+
                 await _userService.RegisterUserAsync(command);
                 TempData["Registered"] = true;
                 return RedirectToAction("Index", "Home");
@@ -100,21 +86,10 @@ namespace SimpleBlog.Controllers
                 return View();
             }
 
-            if (command.Login == null || command.Password == null)
-            {
-                ViewBag.ShowMessage = true;
-                ViewBag.Message = "Fields can't be empty!";
-                return View();
-            }
-            else if (!loginRegex.Match(command.Login).Success || !passwordRegex.Match(command.Password).Success)
-            {
-                ViewBag.ShowMessage = true;
-                ViewBag.Message = "Wrong login or password";
-                return View();
-            }
-
             try
             {
+                LogInValidator.CommandValidation(command);
+
                 var account = await _accountService.LoginAccountAsync(command);
                 HttpContext.Session.SetString("Login", account.Login);
                 HttpContext.Session.SetString("IsAdmin", account.IsAdmin.ToString());
@@ -126,7 +101,7 @@ namespace SimpleBlog.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Profile", "Admin");
+                    return RedirectToAction("Statistics", "Admin");
                 }
             }
             catch (InternalSystemException ex)
