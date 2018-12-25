@@ -13,8 +13,14 @@ namespace SimpleBlog.Controllers
     {
         [HttpGet("statistics")]
         public async Task<IActionResult> Statistics()
-        {
-            return await Task.FromResult(View());
-        }
+            => await Task.FromResult(View());
+
+        [HttpGet("all-posts")]
+        public async Task<IActionResult> AllPosts()
+            => await Task.FromResult(View());
+
+        [HttpGet("new-post")]
+        public async Task<IActionResult> NewPost()
+            => await Task.FromResult(View());
     }
 }
