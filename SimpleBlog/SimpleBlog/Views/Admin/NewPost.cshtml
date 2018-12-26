@@ -1,7 +1,92 @@
-﻿
+﻿@model SimpleBlog.Commands.Post.CreatePostCommand
 @{
     ViewData["Title"] = "NewPost";
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
 }
+@section Styles{ 
+    <link rel="stylesheet" href="~/css/sites/newPost.css" />
+}
 
-<h2>NewPost</h2>
+@if (ViewBag.Added == true)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        Post has been <strong>successfully</strong> added.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+@if (ViewBag.ShowMessage == true)
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewBag.Message
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+    <div class="card border-secondary mb-3">
+        <div class="card-body bg-dark">
+            <h5 class="card-title">New post</h5>
+            <hr>
+            <form action="../admin/new-post" method="post">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    @Html.TextBoxFor(model => model.Title, new
+               {
+                   @type = "text",
+                   @class = "form-control bg-dark",
+                   @id = "title",
+                   @placeholder = "Enter post's title",
+                   @pattern = @"^[A-Za-z-0-9\.\-\!\?]+( [A-Za-z-0-9\.\-\!\?]+)*$",
+                   @minlength = "3",
+                   @maxlength = "150"
+               })
+
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    @Html.TextAreaFor(model => model.Description, new
+               {
+                   @type = "text",
+                   @class = "form-control bg-dark",
+                   @id = "description",
+                   @placeholder = "Enter post's description",
+                   @pattern = @"^[A-Za-z-0-9\.\-\!\?]+( [A-Za-z-0-9\.\-\!\?]+)*$",
+                   @minlength = "10",
+                   @maxlength = "250"
+               })
+                </div>
+                <div class="form-group">
+                    <label for="postContent">Content</label>
+                    @Html.TextAreaFor(model => model.Content, new
+               {
+                   @type = "text",
+                   @class = "form-control bg-dark",
+                   @id = "postContent",
+                   @placeholder = "Enter post's content",
+                   @pattern = @"^[A-Za-z-0-9\.\-\!\?]+( [A-Za-z-0-9\.\-\!\?]+)*$",
+                   @minlength = "10",
+                   @maxlength = "2000",
+                   @rows = "5"
+               })
+                </div>
+                <div class="form-group">
+                    <label for="tags">Tags</label>
+                    @Html.TextBoxFor(model => model.Tags, new
+               {
+                   @type = "text",
+                   @class = "form-control bg-dark",
+                   @id = "tags",
+                   @placeholder = "Enter post's tags",
+                   @pattern = @"^[a-z\-\;]+([a-z\-\;]+)*$",
+                   @minlength = "3",
+                   @maxlength = "200"
+               })
+                </div>
+                <button type="submit" class="btn btn-primary">Create</button>
+            </form>
+        </div>
+    </div>

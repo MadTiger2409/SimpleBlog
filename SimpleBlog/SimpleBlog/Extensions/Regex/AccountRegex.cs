@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SimpleBlog.Extensions
+namespace SimpleBlog.Extensions.Regex
 {
     public static class AccountRegex
     {

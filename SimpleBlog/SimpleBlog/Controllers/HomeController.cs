@@ -56,7 +56,6 @@ namespace SimpleBlog.Controllers
                 CreateMessageValidator.CommandValidation(command);
 
                 await _messageService.AddMessageAsync(command);
-
                 ViewBag.Added = true;
                 return View();
             }

@@ -101,7 +101,7 @@ namespace SimpleBlog.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Statistics", "Admin");
+                    return RedirectToAction("Messages", "Admin");
                 }
             }
             catch (InternalSystemException ex)

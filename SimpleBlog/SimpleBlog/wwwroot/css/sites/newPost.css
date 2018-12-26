@@ -1,0 +1,11 @@
+﻿.card {
+    margin: 1% 10% 0 10%;
+}
+
+.alert {
+    margin: 5px 2% 0 2%;
+}
+
+#title, #description, #postContent, #tags {
+    color: whitesmoke;
+}

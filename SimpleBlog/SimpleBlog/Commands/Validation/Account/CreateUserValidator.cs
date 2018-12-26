@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using SimpleBlog.Commands.Account;
 using SimpleBlog.Extensions;
+using SimpleBlog.Extensions.Regex;
 
 namespace SimpleBlog.Commands.Validation.Account
 {

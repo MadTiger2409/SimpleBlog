@@ -1,0 +1,14 @@
+﻿.list-group {
+    max-height: 520px;
+    overflow-y: auto;
+}
+
+.card {
+    margin: 1% 10% 0 10%;
+}
+
+.list-group-item {
+    margin: 5px 0 5px 0;
+    border-color: darkgray;
+    color: whitesmoke;
+}

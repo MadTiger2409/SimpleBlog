@@ -32,10 +32,16 @@
     {
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">@post.Title</h5>
-                <h6 class="card-subtitle mb-2 text-muted">@post.CreatedAt</h6>
+                <div class="d-flex w-100 justify-content-between">
+                    <h4 class="card-title">@post.Title</h4>
+                    <small class="text-muted">@post.CreatedAt.ToShortDateString()</small>
+                </div>
                 <p class="card-text">@post.Description</p>
-                <a href="#" class="card-link">Card link</a>
+                <hr />
+                <div class="d-flex w-100 justify-content-between">
+                    <a href="#" class="card-link">More</a>
+                    <small class="text-muted">Tags: @post.Tags</small>
+                </div>
             </div>
         </div>
     }
