@@ -71,12 +71,22 @@ Simple implementation of the blog with basic functionality.
   </tr>
   
   <tr>
-    <td>SSL on production</td>
+    <td>Admin control panel</td>
+    <td>:heavy_check_mark:</td>
+  </tr>
+  
+  <tr>
+    <td>Comments mechanism</td>
     <td>:construction:</td>
   </tr>
   
   <tr>
-    <td>Admin control panel</td>
+    <td>Searching by tags</td>
+    <td>:construction:</td>
+  </tr>
+  
+  <tr>
+    <td>SSL on production</td>
     <td>:construction:</td>
   </tr>
   
