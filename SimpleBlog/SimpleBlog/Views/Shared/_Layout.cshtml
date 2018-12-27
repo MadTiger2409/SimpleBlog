@@ -44,7 +44,7 @@
 
                             @if (Context.Session.GetString("IsAdmin") == "True")
                             {
-                                <a class="dropdown-item" href="@Url.Action("statistics", "Admin")">Dashboard</a>
+                                <a class="dropdown-item" href="@Url.Action("messages", "Admin")">Dashboard</a>
                             }
 
                             <a class="dropdown-item" href="@Url.Action("logout", "Account")">Log Out</a>

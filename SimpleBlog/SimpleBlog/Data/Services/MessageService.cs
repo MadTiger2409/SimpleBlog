@@ -24,5 +24,8 @@ namespace SimpleBlog.Data.Services
             await _context.Messages.AddAsync(message);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<Message>> GetMessagessAsync()
+            => await Task.FromResult(_context.Messages.OrderByDescending(x => x.CreatedAt).AsEnumerable());
     }
 }

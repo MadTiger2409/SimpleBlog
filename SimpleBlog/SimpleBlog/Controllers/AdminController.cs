@@ -17,16 +17,22 @@ namespace SimpleBlog.Controllers
     {
         private readonly IPostService _postService;
         private readonly IAdminService _adminService;
+        private readonly IMessageService _messageService;
 
-        public AdminController(IPostService postService, IAdminService adminService)
+        public AdminController(IPostService postService, IAdminService adminService, IMessageService messageService)
         {
             _postService = postService;
             _adminService = adminService;
+            _messageService = messageService;
         }
 
         [HttpGet("messages")]
         public async Task<IActionResult> Messages()
-            => await Task.FromResult(View());
+        {
+            var messages = await _messageService.GetMessagessAsync();
+
+            return View(messages);
+        }
 
         [HttpGet("new-post")]
         public async Task<IActionResult> NewPost()
@@ -42,8 +48,8 @@ namespace SimpleBlog.Controllers
                 return View();
             }
 
-            //try
-            //{
+            try
+            {
                 CreatePostValidation.CommandValidation(command);
 
                 var admin = await _adminService.GetAdminAsync();
@@ -51,19 +57,19 @@ namespace SimpleBlog.Controllers
 
                 ViewBag.Added = true;
                 return View();
-            //}
-            //catch (InternalSystemException ex)
-            //{
-            //    ViewBag.ShowMessage = true;
-            //    ViewBag.Message = ex.Message;
-            //    return View();
-            //}
-            //catch (Exception)
-            //{
-            //    ViewBag.ShowMessage = true;
-            //    ViewBag.Message = "Something went wrong!";
-            //    return View();
-            //}
+            }
+            catch (InternalSystemException ex)
+            {
+                ViewBag.ShowMessage = true;
+                ViewBag.Message = ex.Message;
+                return View();
+            }
+            catch (Exception)
+            {
+                ViewBag.ShowMessage = true;
+                ViewBag.Message = "Something went wrong!";
+                return View();
+            }
         }
     }
 }
