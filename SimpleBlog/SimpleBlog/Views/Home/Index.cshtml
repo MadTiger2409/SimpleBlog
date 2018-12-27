@@ -39,7 +39,7 @@
                 <p class="card-text">@post.Description</p>
                 <hr />
                 <div class="d-flex w-100 justify-content-between">
-                    <a href="#" class="card-link">More</a>
+                    <a href="@Url.Action("post", "Home", new { id = post.Id})" class="card-link">More</a>
                     <small class="text-muted">Tags: @post.Tags</small>
                 </div>
             </div>

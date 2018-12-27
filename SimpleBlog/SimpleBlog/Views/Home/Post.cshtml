@@ -1,0 +1,34 @@
+﻿@model SimpleBlog.Data.Models.Post
+
+@{
+    ViewData["Title"] = "Post";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Styles{
+    <link rel="stylesheet" href="~/css/sites/post.css" />
+}
+
+<div class="card">
+    <div class="card-body">
+        @if (Model == null)
+        {
+            <h4 class="card-title">It's empty bro!</h4>
+            <p class="card-text">What you see is an empty card because this post doesn't exist.</p>
+            <a href="@Url.Action("Index", "Home")" class="card-link">Back</a>
+        }
+        else
+        {
+            <div class="d-flex w-100 justify-content-between">
+                <h4 class="card-title">@Model.Title</h4>
+                <small class="text-muted">@Model.CreatedAt.ToShortDateString()</small>
+            </div>
+            <hr />
+            <p class="card-text">@Model.Content</p>
+            <hr />
+            <div class="d-flex w-100 justify-content-between">
+                <a href="@Url.Action("Index", "Home")" class="card-link">Back</a>
+                <small class="text-muted">Tags: @Model.Tags</small>
+            </div>
+        }
+    </div>
+</div>

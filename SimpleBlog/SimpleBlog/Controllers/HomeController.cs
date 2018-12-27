@@ -73,6 +73,13 @@ namespace SimpleBlog.Controllers
             }
         }
 
+        [HttpGet("post/{id}")]
+        public async Task<IActionResult> Post(int id)
+        {
+            var post = await _postService.GetPostAsync(id);
+            return View(post);
+        }
+
         //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         //public IActionResult Error()
         //{
