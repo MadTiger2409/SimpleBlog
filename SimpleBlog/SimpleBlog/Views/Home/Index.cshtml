@@ -39,8 +39,8 @@
                 <p class="card-text">@post.Description</p>
                 <hr />
                 <div class="d-flex w-100 justify-content-between">
-                    <a href="@Url.Action("post", "Home", new { id = post.Id})" class="card-link">More</a>
-                    <small class="text-muted">Tags: @post.Tags</small>
+                    <a href="@Url.Action("post", "Home", new { id = post.Id.ToString()})" class="card-link">More</a>
+                    <small class="text-muted">Tags: @post.Tags.Replace(';', ' ')</small>
                 </div>
             </div>
         </div>

@@ -74,10 +74,18 @@ namespace SimpleBlog.Controllers
         }
 
         [HttpGet("post/{id}")]
-        public async Task<IActionResult> Post(int id)
+        public async Task<IActionResult> Post(string id)
         {
-            var post = await _postService.GetPostAsync(id);
-            return View(post);
+            try
+            {
+                var postId = int.Parse(id);
+                var post = await _postService.GetPostAsync(postId);
+                return View(post);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

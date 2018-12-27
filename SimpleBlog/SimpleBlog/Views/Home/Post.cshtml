@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="~/css/sites/post.css" />
 }
 
-<div class="card">
+<div class="card" id="post-card">
     <div class="card-body">
         @if (Model == null)
         {
@@ -27,7 +27,34 @@
             <hr />
             <div class="d-flex w-100 justify-content-between">
                 <a href="@Url.Action("Index", "Home")" class="card-link">Back</a>
-                <small class="text-muted">Tags: @Model.Tags</small>
+                <small class="text-muted">Tags: @Model.Tags.Replace(';', ' ')</small>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="card" id="comments-card">
+    <div class="card-body">
+        <h4 class="card-title">Comments</h4>
+        <hr />
+
+        @if (Model.Comments == null || !Model.Comments.Any())
+        {
+        <p class="card-text">This post has no comments yet.</p>
+        }
+        else
+        {
+            <div class="list-group">
+                @foreach (var comment in Model.Comments)
+                {
+                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">@comment.User.Login</h5>
+                            <small class="text-muted">@comment.CreatedAt.ToShortDateString()</small>
+                        </div>
+                        <p class="mb-1">@comment.Content</p>
+                    </a>
+                }
             </div>
         }
     </div>

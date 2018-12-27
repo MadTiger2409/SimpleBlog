@@ -1,3 +1,7 @@
-﻿.card {
+﻿#comments-card {
+    margin: 10px 8% 10px 8%;
+}
+
+#post-card {
     margin: 10px 4% 10px 4%;
 }
