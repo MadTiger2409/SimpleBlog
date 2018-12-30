@@ -135,6 +135,26 @@ namespace SimpleBlog.Controllers
             }
         }
 
+        [Route("search")]
+        public async Task<IActionResult> SearchPost(string query)
+        {
+            if (string.IsNullOrEmpty(query))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            try
+            {
+                var posts = await _postService.GetPostsAsync(query);
+
+                return View(posts);
+            }
+            catch (Exception)
+            {
+                return View();
+            }
+        }
+
         //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         //public IActionResult Error()
         //{

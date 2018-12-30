@@ -33,5 +33,8 @@ namespace SimpleBlog.Data.Services
 
         public async Task<IEnumerable<Post>> GetPostsAsync()
             => await Task.FromResult(_context.Posts.AsEnumerable());
+
+        public async Task<IEnumerable<Post>> GetPostsAsync(string tag)
+            => await Task.FromResult(_context.Posts.Where(x => x.Tags.ToLowerInvariant().Contains(tag.ToLowerInvariant())));
     }
 }

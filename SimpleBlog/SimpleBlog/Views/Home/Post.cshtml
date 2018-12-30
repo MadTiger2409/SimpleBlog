@@ -37,7 +37,7 @@
             <p class="card-text">@Model.Post.Content</p>
             <hr />
             <div class="d-flex w-100 justify-content-between">
-                <a href="@Url.Action("Index", "Home")" class="card-link">Back</a>
+                <a href="back" onClick="history.back(); return false;" class="card-link">Back</a>
                 <small class="text-muted">Tags: @Model.Post.Tags.Replace(';', ' ')</small>
             </div>
         }
