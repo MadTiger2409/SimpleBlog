@@ -28,7 +28,8 @@ namespace SimpleBlog.Data.Services
         }
 
         public async Task<Post> GetPostAsync(int id)
-            => await Task.FromResult(_context.Posts.Include(x => x.Comments).ThenInclude(x => x.User).SingleOrDefault(x => x.Id == id));
+            => await Task.FromResult(_context.Posts.Include(x => x.Comments).ThenInclude(x => x.User)
+                .SingleOrDefault(x => x.Id == id));
 
         public async Task<IEnumerable<Post>> GetPostsAsync()
             => await Task.FromResult(_context.Posts.AsEnumerable());

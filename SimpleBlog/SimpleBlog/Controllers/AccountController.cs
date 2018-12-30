@@ -93,6 +93,7 @@ namespace SimpleBlog.Controllers
                 var account = await _accountService.LoginAccountAsync(command);
                 HttpContext.Session.SetString("Login", account.Login);
                 HttpContext.Session.SetString("IsAdmin", account.IsAdmin.ToString());
+                HttpContext.Session.SetString("Id", account.Id.ToString());
 
                 if (account.IsAdmin == false)
                 {

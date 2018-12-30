@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using SimpleBlog.Commands.Account;
 using SimpleBlog.Data.Database;
 using SimpleBlog.Data.Models;
@@ -23,7 +24,7 @@ namespace SimpleBlog.Data.Services
         }
 
         public async Task<User> GetUserAsync(int id)
-            => await Task.FromResult(_context.Users.SingleOrDefault(x => x.Id == id));
+            => await Task.FromResult(_context.Users.Include(x => x.Comments).SingleOrDefault(x => x.Id == id));
 
         public async Task<User> GetUserAsync(string login)
             => await Task.FromResult(_context.Users.SingleOrDefault(x => x.Login.ToLowerInvariant() == login.ToLowerInvariant()));
