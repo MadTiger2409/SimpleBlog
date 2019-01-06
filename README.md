@@ -87,11 +87,16 @@ Simple implementation of the blog with basic functionality.
   
   <tr>
     <td>Deploy to the production</td>
-    <td>:construction:</td>
+    <td>:heavy_check_mark:</td>
   </tr>
   
   <tr>
     <td>SSL on production</td>
+    <td>:heavy_check_mark:</td>
+  </tr>
+  
+  <tr>
+    <td>Captcha</td>
     <td>:construction:</td>
   </tr>
   
