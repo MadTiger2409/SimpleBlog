@@ -97,12 +97,7 @@ Simple implementation of the blog with basic functionality.
   
   <tr>
     <td>Captcha</td>
-    <td>:construction:</td>
-  </tr>
-  
-  <tr>
-    <td>...</td>
-    <td>...</td>
+    <td>:heavy_check_mark:</td>
   </tr>
 </table>
 
