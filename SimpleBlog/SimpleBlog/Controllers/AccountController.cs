@@ -44,6 +44,13 @@ namespace SimpleBlog.Controllers
                 return View();
             }
 
+            if (string.IsNullOrEmpty(command.Answer) || command.Answer.ToLowerInvariant() != "martha")
+            {
+                ViewBag.ShowMessage = true;
+                ViewBag.Message = "Answer isn't correct. Try again!";
+                return View();
+            }
+
             try
             {
                 CreateUserValidator.CommandValidation(command);

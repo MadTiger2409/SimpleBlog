@@ -9,5 +9,6 @@ namespace SimpleBlog.Commands.Account
     {
         public string Login { get; set; }
         public string Password { get; set; }
+        public string Answer { get; set; }
     }
 }
