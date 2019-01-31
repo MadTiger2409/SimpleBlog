@@ -102,8 +102,8 @@ Simple implementation of the blog with basic functionality.
 </table>
 
 ## Project status
-Current status: RELEASED :heavy_check_mark:
+Current status: CLOSED :x:
 
-The application has been released and is available on [Azure](https://simpleblog20190106102028.azurewebsites.net/)
+The application has been finished. I have no plans for any updates.
 
 A `Master` branch is always the stable one. If you are intrested in testing the project in its current form then you should download this branch.
