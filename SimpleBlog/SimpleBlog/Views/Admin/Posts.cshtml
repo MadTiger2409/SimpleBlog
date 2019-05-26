@@ -1,0 +1,48 @@
+﻿@model IEnumerable<SimpleBlog.Data.Models.Post>
+
+@{
+    ViewData["Title"] = "Posts";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+@section Styles{
+    <link rel="stylesheet" href="~/css/sites/posts.css" />
+}
+
+<div class="card">
+    <div class="card-body bg-dark">
+        <h5 class="card-title">Posts</h5>
+        <hr>
+
+        @if (Model != null && Model.Any())
+        {
+            <div class="list-group">
+
+            @foreach (var post in Model.OrderByDescending(x => x.CreatedAt))
+            {
+                <div class="card">
+                    <div class="card-body bg-dark">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h4 class="card-title">@post.Title</h4>
+                            <small class="text-muted">@post.CreatedAt.ToShortDateString()</small>
+                        </div>
+                        <p class="card-text">@post.Description</p>
+                        <hr />
+                        <div class="d-flex w-100 justify-content-between">
+                            <div>
+                                <a href="@Url.Action("delete-post", "Admin", new { id = post.Id.ToString()})" class="btn btn-danger">Delete</a>
+                                <a href="@Url.Action("edit-post", "Admin", new { id = post.Id.ToString()})" class="btn btn-primary">Edit</a>
+                            </div>
+                            <small class="text-muted">Tags: @post.Tags.Replace(';', ' ')</small>
+                        </div>
+                    </div>
+                </div>
+            }
+            </div>
+        }
+        else
+        {
+            <p class="card-text">You don't have any posts</p>
+        }
+    </div>
+</div>
+

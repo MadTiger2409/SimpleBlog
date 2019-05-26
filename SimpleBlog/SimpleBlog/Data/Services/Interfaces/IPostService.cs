@@ -13,5 +13,7 @@ namespace SimpleBlog.Data.Services.Interfaces
         Task<IEnumerable<Post>> GetPostsAsync(string tag);
         Task<Post> GetPostAsync(int id);
         Task AddPostAsync(CreatePostCommand command, Admin admin);
+        Task EditPostAsync(UpdatePostCommand command);
+        Task DeleteAsync(int id);
     }
 }

@@ -27,14 +27,30 @@ namespace SimpleBlog.Data.Services
             await _context.SaveChangesAsync();
         }
 
+        public async Task EditPostAsync(UpdatePostCommand command)
+        {
+            var post = await _context.Posts.SingleOrDefaultAsync(x => x.Id == command.Id);
+            post.Update(command.Title, command.Description, command.Content, command.Tags);
+
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<Post> GetPostAsync(int id)
-            => await Task.FromResult(_context.Posts.Include(x => x.Comments).ThenInclude(x => x.User)
-                .SingleOrDefault(x => x.Id == id));
+            => await _context.Posts.Include(x => x.Comments).ThenInclude(x => x.User)
+                .SingleOrDefaultAsync(x => x.Id == id);
 
         public async Task<IEnumerable<Post>> GetPostsAsync()
             => await Task.FromResult(_context.Posts.AsEnumerable());
 
         public async Task<IEnumerable<Post>> GetPostsAsync(string tag)
             => await Task.FromResult(_context.Posts.Where(x => x.Tags.ToLowerInvariant().Contains(tag.ToLowerInvariant())));
+
+        public async Task DeleteAsync(int id)
+        {
+            var post = await _context.Posts.SingleOrDefaultAsync(x => x.Id == id);
+            _context.Posts.Remove(post);
+
+            await _context.SaveChangesAsync();
+        }
     }
 }

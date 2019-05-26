@@ -22,5 +22,14 @@ namespace SimpleBlog.Data.Models
             Content = content;
             Tags = tags;
         }
+
+        public void Update(string title, string description, string content, string tags)
+        {
+            Title = title;
+            Description = description;
+            Content = content;
+            Tags = tags;
+            UpdatedAt = DateTime.UtcNow;
+        }
     }
 }
