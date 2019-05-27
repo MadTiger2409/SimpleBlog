@@ -99,6 +99,16 @@ Simple implementation of the blog with basic functionality.
     <td>Captcha</td>
     <td>:heavy_check_mark:</td>
   </tr>
+  
+  <tr>
+    <td>Posts management tool</td>
+    <td>:heavy_check_mark:</td>
+  </tr>
+  
+  <tr>
+    <td>Statistics as PDF file</td>
+    <td>:heavy_check_mark:</td>
+  </tr>
 </table>
 
 ## Project status
