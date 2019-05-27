@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DinkToPdf;
+using DinkToPdf.Contracts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -54,10 +56,12 @@ namespace SimpleBlog
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IMessageService, MessageService>();
             services.AddScoped<ICommentService, CommentService>();
+            services.AddScoped<IStatisticsService, StatisticsService>();
             #endregion
 
             #region Extensions
             services.AddScoped<IPasswordManager, PasswordManager>();
+            services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
             #endregion
         }
 

@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DinkToPdf;
+using DinkToPdf.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using SimpleBlog.Commands.Post;
 using SimpleBlog.Commands.Validation.Post;
 using SimpleBlog.Data.Services.Interfaces;
 using SimpleBlog.Extensions;
 using SimpleBlog.Extensions.Attributes;
+using SimpleBlog.Extensions.PdfRaport;
 
 namespace SimpleBlog.Controllers
 {
@@ -18,12 +21,17 @@ namespace SimpleBlog.Controllers
         private readonly IPostService _postService;
         private readonly IAdminService _adminService;
         private readonly IMessageService _messageService;
+        private readonly IStatisticsService _statisticsService;
+        private readonly IConverter _converter;
 
-        public AdminController(IPostService postService, IAdminService adminService, IMessageService messageService)
+        public AdminController(IPostService postService, IAdminService adminService, IMessageService messageService,
+            IStatisticsService statisticsService, IConverter converter)
         {
             _postService = postService;
             _adminService = adminService;
             _messageService = messageService;
+            _statisticsService = statisticsService;
+            _converter = converter;
         }
 
         [HttpGet("messages")]
@@ -139,6 +147,38 @@ namespace SimpleBlog.Controllers
             {
                 return RedirectToAction("Posts");
             }
+        }
+
+        [HttpGet("statistics")]
+        public async Task<IActionResult> GetStatisticsPdf()
+        {
+            var statistics = await _statisticsService.GetStatisticsAsync();
+
+            var globalSettings = new GlobalSettings
+            {
+                ColorMode = ColorMode.Color,
+                Orientation = Orientation.Portrait,
+                PaperSize = PaperKind.A4,
+                Margins = new MarginSettings { Top = 10 },
+                DocumentTitle = $"Statistics Raport {DateTime.UtcNow}"
+            };
+
+            var objectSettings = new ObjectSettings
+            {
+                PagesCount = true,
+                HtmlContent = RaportTemplate.GetHTMLTemplate(statistics),
+                HeaderSettings = { FontName = "Arial", FontSize = 9, Right = "Page [page] of [toPage]", Line = true },
+                FooterSettings = { FontName = "Arial", FontSize = 9, Line = true, Center = "SimpleBlog raport" }
+            };
+
+            var pdf = new HtmlToPdfDocument()
+            {
+                GlobalSettings = globalSettings,
+                Objects = { objectSettings }
+            };
+
+            var file = _converter.Convert(pdf);
+            return File(file, "application/pdf");
         }
     }
 }
