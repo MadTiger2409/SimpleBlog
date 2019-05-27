@@ -37,7 +37,8 @@ namespace SimpleBlog.Extensions.PdfRaport
                                     </tr>
                                 </table>
                             </body>
-                        </html>", DateTime.UtcNow, statistics.PostsCount, statistics.CommentsCount, statistics.OldestPostDate);
+                        </html>", $"{DateTime.Now.ToShortTimeString()}, {DateTime.Now.ToShortDateString()}", statistics.PostsCount,
+                        statistics.CommentsCount, $"{statistics.OldestPostDate.ToShortTimeString()}, {statistics.OldestPostDate.ToShortDateString()}");
 
             return stringBuilder.ToString();
         }
