@@ -4,9 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SimpleBlog.Data.Database;
+using SimpleBlog.Data.Services.Interfaces;
 using SimpleBlog.Extensions.PdfRaport;
 
-namespace SimpleBlog.Data.Services.Interfaces
+namespace SimpleBlog.Data.Services
 {
     public class StatisticsService : IStatisticsService
     {
