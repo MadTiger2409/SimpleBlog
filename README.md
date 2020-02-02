@@ -1,5 +1,5 @@
 # SimpleBlog
-Simple implementation of the blog with basic functionality.
+Simple implementation of the blog with basic functionalities.
 
 ## Table of contents
 * [Technologies](#technologies)
